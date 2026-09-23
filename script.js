@@ -101,18 +101,26 @@
     var idx = 0;
 
     function render(){
-      var spacing = Math.min(stage.clientWidth * 0.30, 250);
+      // en pantallas angostas: solo la tarjeta activa (evita que se encimen)
+      var mobile = stage.clientWidth < 520;
+      var spacing = mobile ? stage.clientWidth : Math.min(stage.clientWidth * 0.30, 250);
       cards.forEach(function(c, i){
         // distancia con signo más corta al activo (envuelve → loop infinito)
         var slot = ((i - idx) % n + n) % n;
         if(slot > n / 2) slot -= n;
         var a = Math.abs(slot);
-        var scale = slot === 0 ? 1.18 : (a === 1 ? 0.82 : 0.64);
-        var opacity = a === 0 ? 1 : (a === 1 ? 0.55 : (a === 2 ? 0.22 : 0));
+        var scale, opacity;
+        if(mobile){
+          scale = slot === 0 ? 1 : 0.9;
+          opacity = slot === 0 ? 1 : 0;   // vecinas ocultas y fuera de pantalla
+        }else{
+          scale = slot === 0 ? 1.18 : (a === 1 ? 0.82 : 0.64);
+          opacity = a === 0 ? 1 : (a === 1 ? 0.55 : (a === 2 ? 0.22 : 0));
+        }
         c.style.transform = 'translate(-50%,-50%) translateX(' + (slot * spacing) + 'px) scale(' + scale + ')';
         c.style.opacity = opacity;
         c.style.zIndex = String(100 - a);
-        c.style.pointerEvents = a > 2 ? 'none' : 'auto';
+        c.style.pointerEvents = (opacity === 0 || a > 2) ? 'none' : 'auto';
         c.classList.toggle('active', slot === 0);
       });
     }

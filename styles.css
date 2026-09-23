@@ -101,7 +101,7 @@ p{margin:0}
 
 /* mockup panel */
 .mock{
-  max-width:1040px;margin:clamp(44px,6vw,72px) auto 0;background:#fff;
+  max-width:880px;margin:clamp(44px,6vw,72px) auto 0;background:#fff;
   border:1px solid var(--gray-200);border-radius:var(--radius-lg);
   box-shadow:var(--shadow-lg);overflow:hidden;text-align:left;
 }
@@ -348,7 +348,8 @@ p{margin:0}
    ============================================================ */
 @media (max-width:900px){
   .nav-links,.nav-cta .btn{display:none}
-  .nav-toggle{display:block}
+  .nav-cta{display:none}
+  .nav-toggle{display:block;margin-left:auto}
   .nav.open .nav-links{
     display:flex;position:absolute;top:74px;left:0;right:0;flex-direction:column;
     align-items:flex-start;gap:4px;background:#fff;border-bottom:1px solid var(--divider);
