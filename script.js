@@ -164,3 +164,84 @@
     if(btn){ btn.textContent = '¡Gracias! Te contactamos pronto ✓'; btn.disabled = true; }
   });
 })();
+
+/* ===== Carrusel de reseñas (Comunidad): solo flechas, loop infinito continuo ===== */
+(function(){
+  document.querySelectorAll(".rv").forEach(function(rv){
+    var track = rv.querySelector(".rv-track");
+    var real = track ? Array.prototype.slice.call(track.querySelectorAll(".rv-slide")) : [];
+    var n = real.length;
+    if(!n) return;
+    var prev = rv.querySelector(".rv-nav.prev");
+    var next = rv.querySelector(".rv-nav.next");
+    var dotsBox = rv.parentElement.querySelector(".rv-dots");
+
+    // clones en los extremos: [ultima] 1 2 ... n [primera] -> el paso final->inicio se ve continuo
+    var firstClone = real[0].cloneNode(true);
+    var lastClone = real[n - 1].cloneNode(true);
+    [firstClone, lastClone].forEach(function(c){
+      c.setAttribute("aria-hidden", "true");
+      c.removeAttribute("aria-label");
+      c.classList.add("rv-clone");
+    });
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, real[0]);
+
+    var pos = 1;            // posicion en el track (0 = clon de la ultima)
+    var busy = false;
+
+    function current(){ return ((pos - 1) % n + n) % n; }
+    function place(animate){
+      track.style.transition = animate ? "" : "none";
+      track.style.transform = "translateX(" + (-pos * 100) + "%)";
+      if(!animate){ void track.offsetWidth; track.style.transition = ""; }
+      var k = current();
+      real.forEach(function(sl, i){ sl.setAttribute("aria-hidden", i === k ? "false" : "true"); });
+      dots.forEach(function(d, i){ d.setAttribute("aria-selected", i === k ? "true" : "false"); });
+    }
+    function finish(){
+      if(pos === n + 1){ pos = 1; place(false); }   // estaba en el clon de la primera
+      else if(pos === 0){ pos = n; place(false); }  // estaba en el clon de la ultima
+      busy = false;
+    }
+    function goTo(p){
+      if(busy) return;
+      busy = true;
+      pos = p;
+      place(true);
+      // sin animacion (prefers-reduced-motion) no hay transitionend
+      if(parseFloat(getComputedStyle(track).transitionDuration) === 0) finish();
+    }
+    function move(step){ goTo(pos + step); }
+    track.addEventListener("transitionend", function(e){ if(e.target === track) finish(); });
+
+    var dots = [];
+    if(dotsBox){
+      for(var i = 0; i < n; i++){
+        var d = document.createElement("button");
+        d.type = "button";
+        d.setAttribute("role", "tab");
+        d.setAttribute("aria-label", "Ir a la reseña " + (i + 1));
+        (function(k){ d.addEventListener("click", function(){ if(k !== current()) goTo(k + 1); }); })(i);
+        dotsBox.appendChild(d);
+        dots.push(d);
+      }
+    }
+
+    if(prev) prev.addEventListener("click", function(){ move(-1); });
+    if(next) next.addEventListener("click", function(){ move(1); });
+
+    // swipe tactil (solo si el usuario desliza)
+    var x0 = null;
+    rv.addEventListener("touchstart", function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    rv.addEventListener("touchend", function(e){
+      if(x0 !== null){
+        var dx = e.changedTouches[0].clientX - x0;
+        if(Math.abs(dx) > 40) move(dx < 0 ? 1 : -1);
+      }
+      x0 = null;
+    });
+
+    place(false);
+  });
+})();

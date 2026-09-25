@@ -164,13 +164,6 @@ p{margin:0}
   width:auto;height:clamp(72px,8vw,104px);max-width:150px;
   filter:drop-shadow(0 10px 18px rgba(15,23,42,.10));
 }
-/* Variante: logos de empresas clientes en gris oscuro sobre blanco (Home) */
-.marquee-wrap.empresas{background:#fff;padding:clamp(20px,2.8vw,32px) 0}
-.marquee-wrap.empresas .marquee-track{gap:clamp(40px,5vw,72px)}
-.marquee-wrap.empresas .chip{gap:0}
-.marquee-wrap.empresas .chip img{
-  width:auto;height:clamp(64px,7vw,88px);max-width:190px;object-fit:contain;
-  opacity:1;transition:opacity .3s ease}
 @media (prefers-reduced-motion:reduce){.marquee-track{animation-duration:120s}}
 
 /* ============================================================
@@ -342,6 +335,42 @@ p{margin:0}
 .eco-name{font-size:20px;font-weight:800}
 @media (max-width:560px){.eco-stage{min-height:280px}.eco-card{width:210px}.eco-logo img{height:104px}.eco-nav{width:42px;height:42px}}
 @media (prefers-reduced-motion:reduce){.eco-card,.eco-logo img{transition-duration:.01ms}}
+
+/* ============================================================
+   COMUNIDAD FYNTA (testimonios)
+   ============================================================ */
+.comunidad{background:var(--gray-50)}
+.com-head{text-align:center;max-width:760px;margin:0 auto clamp(36px,5vw,56px)}
+.com-head h1{font-size:clamp(36px,5.2vw,60px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin-top:12px}
+.com-head p{color:var(--muted);font-size:clamp(16px,1.7vw,19px);margin-top:18px}
+/* Carrusel de reseñas: 2 tarjetas por diapositiva */
+.t-stars{color:var(--brand);letter-spacing:3px;font-size:18px;line-height:1}
+.rv{display:flex;align-items:center;gap:14px}
+.rv-viewport{flex:1;min-width:0;overflow:hidden}
+.rv-track{display:flex;transition:transform .55s cubic-bezier(.22,.61,.36,1);will-change:transform}
+.rv-slide{flex:0 0 100%;display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:10px 28px 38px;box-sizing:border-box}
+.rv-card{background:#fff;border:1px solid var(--gray-200);border-radius:22px;
+  padding:clamp(24px,2.8vw,36px);box-shadow:0 10px 26px rgba(15,23,42,.07);display:flex;flex-direction:column}
+.rv-work{justify-content:center}
+.rv-work h3{font-size:clamp(20px,2vw,24px);font-weight:800}
+.rv-work p{color:var(--ink-soft);font-size:16px;line-height:1.7;margin-top:14px}
+.rv-review{gap:16px}
+.rv-quote{color:var(--ink);font-size:clamp(16px,1.35vw,17.5px);line-height:1.65;font-weight:500}
+.rv-foot{display:flex;align-items:center;gap:16px;margin-top:auto;padding-top:18px;border-top:1px solid var(--divider)}
+.rv-foot img{height:54px;width:auto;max-width:130px;object-fit:contain;flex:0 0 auto}
+.rv-foot strong{display:block;font-size:16px;color:var(--ink)}
+.rv-foot small{color:var(--muted);font-size:13.5px}
+.rv-dots{display:flex;justify-content:center;gap:8px;margin-top:-6px}
+.rv-dots button{width:9px;height:9px;border-radius:50%;border:0;padding:0;background:var(--gray-200);cursor:pointer;transition:width .3s,background .3s,border-radius .3s}
+.rv-dots button[aria-selected="true"]{width:26px;border-radius:5px;background:var(--brand)}
+@media (max-width:760px){
+  .rv{flex-wrap:wrap;justify-content:center}
+  .rv-viewport{flex:0 0 100%;order:0}
+  .rv-nav{order:1}
+  .rv-slide{grid-template-columns:1fr;padding:8px 14px 30px}
+  .rv-dots{margin-top:16px}
+}
+@media (prefers-reduced-motion:reduce){.rv-track{transition:none}}
 
 /* ============================================================
    RESPONSIVE
