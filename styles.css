@@ -267,6 +267,8 @@ p{margin:0}
 .footer ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
 .footer ul a{color:#cfcfd4;transition:color .2s}
 .footer ul a:hover{color:#fff}
+.footer-ig{display:inline-flex;align-items:center;gap:10px}
+.footer-ig svg{width:20px;height:20px;flex:0 0 auto}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 0;color:#7a7a82;font-size:14.5px}
 
 /* ============================================================
@@ -395,7 +397,8 @@ p{margin:0}
   .wrap{padding:0 18px}
   .hero-cta{flex-direction:column}
   .hero-cta .btn{width:100%}
-  .footer-top{grid-template-columns:1fr;gap:28px}
+  .footer-top{grid-template-columns:1fr;gap:28px;padding-top:52px;padding-bottom:40px}
+  .footer-bottom{padding-top:20px;padding-bottom:24px}
   .card-sm{grid-template-columns:1fr}
   .card-sm .ico-box{margin-bottom:6px}
 }
