@@ -308,6 +308,8 @@ p{margin:0}
 .cta-side{display:grid;gap:20px;justify-items:start}
 .cta-side .wa,.cta-side .mail{display:flex;align-items:center;gap:12px;color:#DCE6F0;font-size:16px}
 .cta-side .wa b{color:#fff}
+.cta-side .wa:hover b,.cta-side .mail:hover{color:#fff}
+.cta-side .wa:hover b{text-decoration:underline;text-underline-offset:3px}
 .cta-side svg{width:20px;height:20px;color:#8FC0EC}
 .cta-side .icircle{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center}
 
