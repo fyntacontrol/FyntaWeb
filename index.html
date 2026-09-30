@@ -241,28 +241,34 @@
         </a>
       </div>
     </div>
-    <form class="form" id="book-form">
+    <form class="form" id="book-form" action="https://api.web3forms.com/submit" method="POST">
+      <!-- Web3Forms: los envíos llegan a fyntacontrol@gmail.com -->
+      <input type="hidden" name="access_key" value="9ed1c1d6-93b7-4189-98b6-3c4672c98b27" />
+      <input type="hidden" name="from_name" value="Web Fynta" />
+      <input type="hidden" name="subject" value="Nueva solicitud de diagnóstico" />
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <div class="field">
         <label for="f-nombre">Nombre completo</label>
-        <input id="f-nombre" name="nombre" type="text" placeholder="María Rojas" required />
+        <input id="f-nombre" name="Nombre" type="text" autocomplete="name" placeholder="María Rojas" required />
       </div>
       <div class="field">
         <label for="f-correo">Correo</label>
-        <input id="f-correo" name="correo" type="email" placeholder="maria@empresa.pe" required />
+        <input id="f-correo" name="email" type="email" autocomplete="email" placeholder="maria@empresa.pe" required />
       </div>
       <div class="field">
         <label for="f-tel">Teléfono / WhatsApp</label>
-        <input id="f-tel" name="telefono" type="tel" placeholder="+51 987 654 321" />
+        <input id="f-tel" name="WhatsApp" type="tel" autocomplete="tel" placeholder="+51 987 654 321" />
       </div>
       <div class="field">
         <label for="f-empresa">Nombre de la empresa</label>
-        <input id="f-empresa" name="empresa" type="text" placeholder="Textiles del Sur" />
+        <input id="f-empresa" name="Empresa" type="text" autocomplete="organization" placeholder="Textiles del Sur" />
       </div>
       <div class="field">
         <label for="f-msg">Mensaje <span class="opt">(opcional)</span></label>
-        <textarea id="f-msg" name="mensaje" placeholder="¿Qué tarea repetitiva te quita más tiempo?"></textarea>
+        <textarea id="f-msg" name="Mensaje" placeholder="¿Qué tarea repetitiva te quita más tiempo?"></textarea>
       </div>
       <button class="btn btn-brand" type="submit">Agendar mi diagnóstico gratis</button>
+      <p class="form-status" role="status" aria-live="polite" hidden></p>
       <p class="form-note">Sin compromiso. Te respondemos en menos de 24 horas.</p>
     </form>
   </div>

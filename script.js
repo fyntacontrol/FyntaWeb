@@ -154,14 +154,47 @@
   });
 })();
 
-/* ===== Envío de formulario (demo, sin backend) ===== */
+/* ===== Envío de formulario (Web3Forms → fyntacontrol@gmail.com) ===== */
 (function(){
   var form = document.getElementById('book-form');
   if(!form) return;
+  var btn = form.querySelector('button[type="submit"]');
+  var status = form.querySelector('.form-status');
+  var label = btn ? btn.textContent : '';
+
+  function show(msg, ok){
+    if(!status) return;
+    status.hidden = false;
+    status.textContent = msg;
+    status.classList.toggle('err', !ok);
+  }
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var btn = form.querySelector('button[type="submit"]');
-    if(btn){ btn.textContent = '¡Gracias! Te contactamos pronto ✓'; btn.disabled = true; }
+    var data = Object.fromEntries(new FormData(form));
+    if(data.botcheck) return;                       // bot: se ignora en silencio
+    delete data.botcheck;
+    data.subject = 'Nueva solicitud de diagnóstico – ' + (data.Empresa || data.Nombre);
+    if(status) status.hidden = true;
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(function(r){ return r.json().then(function(j){ if(!r.ok || !j.success) throw new Error(j.message); }); })
+    .then(function(){
+      form.reset();
+      btn.textContent = '¡Gracias! Te contactamos pronto ✓';
+      show('Recibimos tu solicitud. Te escribiremos en menos de 24 horas.', true);
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.textContent = label;
+      show('No pudimos enviar tu solicitud. Inténtalo de nuevo o escríbenos por WhatsApp al +51 967 083 329.', false);
+    });
   });
 })();
 

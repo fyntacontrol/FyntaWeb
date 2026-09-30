@@ -255,6 +255,9 @@ p{margin:0}
 #agendar .book-contact a{color:#DCE6F0}
 #agendar .book-contact a b{color:#fff}
 #agendar .book-contact svg{color:#8FC0EC}
+.form .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.form-status{margin:12px 0 0;padding:12px 14px;border-radius:12px;font-size:14.5px;background:#E8F5EC;color:#1E6B3A}
+.form-status.err{background:#FDECEC;color:#A12A2A}
 
 /* ============================================================
    FOOTER
